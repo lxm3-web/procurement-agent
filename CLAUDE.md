@@ -28,3 +28,10 @@
 | `data/supplier_notices.csv` | Sheet 分頁 supplier_notices（可選，沒有就只看 inbox） | 觸發來源（備用） |
 
 Sheet：https://docs.google.com/spreadsheets/d/1drsIQsef0R-Kxf3lccrOr6-FYX8O9r9sufl1mNdx5gU（公開唯讀，教學用假資料）
+
+## 啟動程序（每次開工先做，做完才處理指示）
+1. 先跑 `bash scripts/fetch_data.sh`：從 Google Sheet（https://docs.google.com/spreadsheets/d/1drsIQsef0R-Kxf3lccrOr6-FYX8O9r9sufl1mNdx5gU，公開唯讀）更新 `data/`，抓不到就沿用 repo 內快照，照樣能跑。**Google Sheet 是資料來源，repo 內 CSV 只是備援快照。**
+2. 讀 `memory/MEMORY.md`（索引）→ 依索引讀相關記憶檔，再讀 `memory/CONVERSATION_LOG.md` 最上面幾筆：上次做到哪、人怎麼糾正過。
+3. 用 `knowledge/` 的規則與 `.claude/skills/` 的技能做事（本 Agent 自備：supplier-scorecard、vendor-evaluation）。技能是判斷框架，不取代上面的鐵律。
+4. 收工前：把「這次學到、下次要記」寫進 `memory/`（被糾正一次就寫，同一件事不准讓人講第二次），並在 `memory/CONVERSATION_LOG.md` 最上面加一筆。`log/incident_log.md` 是每次產出的流水帳，不等於記憶。
+5. **demo 歸零只清 `outbox/`、`log/` 與資料快照，不清 `memory/`、`knowledge/`、`.claude/`**。
